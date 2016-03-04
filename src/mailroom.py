@@ -13,7 +13,7 @@ def get_prompt(prompt):
 
 def main():
     """Manage general program flow through function calls"""
-    selection = menu_prompt()
+    selection = menu_prompt(get_prompt('Enter 1 to send a thank you or 2 to print a report:'))
     if selection == 'quit' or selection == 'q':
         return 'done'
     if selection == '1':
@@ -34,9 +34,9 @@ def main():
         main()
 
 
-def menu_prompt():
+def menu_prompt(prompt):
     """Display menu prompt and accept selection"""
-    user_input = input('Enter 1 to send a thank you or 2 to print a report:')
+    user_input = prompt
     if user_input == '1':
         return user_input
     elif user_input == '2':
@@ -47,7 +47,7 @@ def menu_prompt():
         return user_input
     else:
         print("sorry, your choice was invalid. try again.")
-        user_input = menu_prompt()
+        user_input = menu_prompt(prompt)
     return user_input
 
 
