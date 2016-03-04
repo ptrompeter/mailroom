@@ -7,6 +7,9 @@ data = {('Roberts', 'John'): [20.00, 15.00],
         ('asdf', 'brice'): [2.35],
         }
 
+def get_prompt(prompt):
+    input1 = input(prompt)
+    return input1
 
 def main():
     """Manage general program flow through function calls"""
@@ -14,11 +17,11 @@ def main():
     if selection == 'quit' or selection == 'q':
         return 'done'
     if selection == '1':
-        name = get_name()
+        name = get_name(get_prompt("please enter full name, first name first, or type 'list': "))
         while name == 'list':
             name_list()
-            name = get_name()
-        donation = get_donation()
+            name = get_name(get_prompt("please enter full name, first name first, or type 'list': "))
+        donation = get_donation(get_prompt("Please enter donation amount: "))
         update_data(name, donation)
         write_email(name, donation)
         main()
@@ -48,9 +51,9 @@ def menu_prompt():
     return user_input
 
 
-def get_name():
+def get_name(name):
     """Return a full name entered by user."""
-    user_input = input("please enter full name, first name first, or type 'list': ")
+    user_input = name
     if user_input == 'list':
         return user_input
     else:
@@ -61,9 +64,9 @@ def get_name():
         return name
 
 
-def get_donation():
+def get_donation(string_of_num):
     """Return a float based on user input."""
-    donation = input("Please enter donation amount: ")
+    donation = string_of_num
     try:
         float(donation)
     except ValueError:
