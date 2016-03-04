@@ -2,7 +2,7 @@
 
 import operator
 
-data = {('Roberts', 'John'): [20.00, 15.00],
+sample_data = {('Roberts', 'John'): [20.00, 15.00],
         ('Edwards', 'Mary'): [5.00, 30.50],
         ('asdf', 'brice'): [2.35],
         }
@@ -11,7 +11,7 @@ def get_prompt(prompt):
     input1 = input(prompt)
     return input1
 
-def main():
+def main(data):
     """Manage general program flow through function calls"""
     selection = menu_prompt(get_prompt('Enter 1 to send a thank you or 2 to print a report:'))
     if selection == 'quit' or selection == 'q':
@@ -19,19 +19,19 @@ def main():
     if selection == '1':
         name = get_name(get_prompt("please enter full name, first name first, or type 'list': "))
         while name == 'list':
-            name_list()
+            name_list(data)
             name = get_name(get_prompt("please enter full name, first name first, or type 'list': "))
         donation = get_donation(get_prompt("Please enter donation amount: "))
-        update_data(name, donation)
+        update_data(name, donation, data)
         write_email(name, donation)
-        main()
+        main(data)
 
     elif selection == '2':
-        generate_report(sort_by_donation())
+        generate_report(sort_by_donation(data), data)
 
     else:
         print("invalid selection")
-        main()
+        main(data)
 
 
 def menu_prompt(prompt):
@@ -75,7 +75,7 @@ def get_donation(string_of_num):
     return float(donation)
 
 
-def update_data(name, amount):
+def update_data(name, amount, data):
     """Finds and updates or creates entry in data based on user input."""
     data.setdefault(name, []).append(amount)
 
@@ -84,14 +84,14 @@ def write_email(name, amount):
     print("Dear {} {}, thank you for your generous donation of {} dollars.  We are grateful for your continued support.  The mailroom.".format(name[1], name[0], amount))
 
 
-def name_list():
+def name_list(data):
     """Print a list of donors and re-run main."""
     for key in data:
         print(("{0}, {1}".format(key[0], key[1])))
-    main()
+    main(data)
 
 
-def sort_by_donation():
+def sort_by_donation(data):
     """Create a dictionary with summed donation and return a list sorted by donation."""
     sum_dict = {}
     for key in data:
@@ -100,7 +100,7 @@ def sort_by_donation():
     return sorted_list
 
 
-def generate_report(sorted_list):
+def generate_report(sorted_list, data):
     """Prints a report of all names, summed donations, number of donations, and average donations"""
     for index in sorted_list:
         name = index[0]
@@ -108,8 +108,8 @@ def generate_report(sorted_list):
         num = len(data[name])
         avg = total / num
         print("Last Name: {}, First Name: {}, Total Donated: {}, Number of Donations: {}, Average Donation: {}".format(name[0], name[1], total, num, avg))
-    main()
+    main(data)
 
 
 if __name__ == '__main__':
-    main()
+    main(sample_data)
