@@ -1,9 +1,39 @@
 # _*_ coding: utf-8 _*_
 
+import pdb
+import pytest
 data = {('Roberts', 'John'): [20.00, 15.00],
         ('Edwards', 'Mary'): [5.00, 30.50],
         ('asdf', 'brice'): [2.35],
         }
+
+NAME_CHECK_DATA = ['Bob Smith, Bob Smith', 'Bob Joe Smith, Bob Joe Smith', '333, None']
+
+
+DONATION_CHECK_DATA = ['33, 33', '45.52, 45.52', 'Buster, None']
+
+
+MENU_CHECK_DATA = ['1, 1', '2, 2', 'q, q', 'quit, quit', 'list, None']
+
+
+@pytest.mark.parametrize('input, result', NAME_CHECK_DATA)
+def test_check_data(input, result):
+    from mailroom import name_check
+    assert name_check(input) == result
+
+
+@pytest.mark.parametrize('input, result', DONATION_CHECK_DATA)
+def test_check_data(input, result):
+    """Test check_"""
+    from mailroom import donation_check
+    assert donation_check(input) == result
+
+
+@pytest.mark.parametrize('input, result', MENU_CHECK_DATA)
+def test_check_data(input, result):
+    """Test menu_check function"""
+    from mailroom import menu_check
+    assert menu_check(input) == result
 
 
 def test_sortbydonation():
