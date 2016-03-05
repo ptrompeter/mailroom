@@ -25,7 +25,7 @@ def donation_check(user_input):
     try: 
         float(user_input)
         return float(user_input)
-    except typeError:
+    except ValueError:
         print('Sorry, please enter a number')   
 
 def menu_check(user_input):
@@ -71,17 +71,6 @@ def main(data):
 def menu_prompt(prompt):
     """Display menu prompt and accept selection"""
     user_input = prompt
-    if user_input == '1':
-        return user_input
-    elif user_input == '2':
-        return user_input
-    elif user_input == 'quit':
-        return user_input
-    elif user_input == 'q':
-        return user_input
-    else:
-        print("sorry, your choice was invalid. try again.")
-        user_input = menu_prompt(prompt)
     return user_input
 
 
@@ -92,20 +81,12 @@ def get_name(name):
         return user_input
     else:
         name = (user_input.split()[-1], user_input.split()[0],)
-        while len(name) != 2:
-            print("sorry, invalid entry.  Please try again.")
-            name = get_name(name)
         return name
 
 
 def get_donation(string_of_num):
     """Return a float based on user input."""
     donation = string_of_num
-    try:
-        float(donation)
-    except ValueError:
-        print("sorry, your entry was not valid.")
-        donation = get_donation(string_of_num)
     return float(donation)
 
 
@@ -136,13 +117,14 @@ def sort_by_donation(data):
 
 def generate_report(sorted_list, data):
     """Prints a report of all names, summed donations, number of donations, and average donations"""
-    print('{:20} {:10} {:15}, {:10}'.format('Name', 'Total', 'No. Donations', 'Average'))
+    print('{:<20} {:<10} {:<15} {:<10}'.format('Name', 'Total', 'No. Donations', 'Average'))
     for index in sorted_list:
         name = index[0]
+        string_name = index[0][0] + ", " + index[0][1]
         total = index[1]
         num = len(data[name])
         avg = total / num
-        print("Last Name: {}, First Name: {}, Total Donated: {}, Number of Donations: {}, Average Donation: {}".format(name[0], name[1], total, num, avg))
+        print("{:<20} {:<10} {:<15} {:<10}".format(string_name, total, num, avg))
     main(data)
 
 
