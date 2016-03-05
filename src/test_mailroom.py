@@ -10,7 +10,7 @@ def test_sortbydonation():
     """Test Sort By donation function in mailroom"""
     from mailroom import sort_by_donation
     assert type(sort_by_donation(data)) == list
-    #assert len(sort_by_donation(data)) == 3
+    assert len(sort_by_donation(data)) == 3
     data2 = sort_by_donation(data)
     for i in range(len(data2) - 1):
         assert data2[i] > data2[i + 1]  or len(data2) < 2
@@ -25,13 +25,14 @@ def test_getname():
 
 
 def test_menuprompot():
-	""" Test menu prompt"""
-	from mailroom import menu_prompt
-	assert menu_prompt('2') == '2'
+    """ Test menu prompt"""
+    from mailroom import menu_prompt
+    assert menu_prompt('2') == '2'
 
 
 def test_getdonation():
-	"""Test Get Donation"""
-	from mailroom import get_donation
-	assert get_donation('2') == 2.0
+    """Test Get Donation"""
+    from mailroom import get_donation
+    assert get_donation('2') == 2.0
 
+    
