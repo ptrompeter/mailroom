@@ -1,17 +1,20 @@
 # _*_ coding: utf-8 _*_
 
 import operator
+import pdb
 
-sample_data = {('Roberts', 'John'): [20.00, 15.00],
+SAMPLE_DATA = {('Roberts', 'John'): [20.00, 15.00],
         ('Edwards', 'Mary'): [5.00, 30.50],
         ('asdf', 'brice'): [2.35],
         }
 
-usr_requests = {
+USR_REQUESTS = {
     'name': "Please enter full name, first name first, or type 'list': ",
     'amount': "Please enter donation amount: ",
     'menu': "Enter 1 to send a thank you or 2 to print a report: ",
     }
+
+#USER INPUT FUNCTION
 
 def get_prompt(prompt, function):
     """Accept user input subject to validation."""
@@ -20,6 +23,7 @@ def get_prompt(prompt, function):
         user_input = function(input(prompt))
     return user_input
 
+#VALIDATORSa
 def donation_check(user_input):
     """Reject non-numbers."""
     try: 
@@ -44,18 +48,18 @@ def name_check(user_input):
     return user_input 
 
 
-
+#CONTROL FUNCTION
 def main(data):
     """Manage general program flow through function calls"""
-    selection = menu_prompt(get_prompt(usr_requests['menu'], menu_check))
+    selection = menu_prompt(get_prompt(USR_REQUESTS['menu'], menu_check))
     if selection == 'quit' or selection == 'q':
         return 'done'
     if selection == '1':
-        name = get_name(get_prompt(usr_requests['name'], name_check))
+        name = get_name(get_prompt(USR_REQUESTS['name'], name_check))
         while name == 'list':
             name_list(data)
-            name = get_name(get_prompt(usr_requests['name'], name_check))
-        donation = get_donation(get_prompt(usr_requests['amount'], donation_check))
+            name = get_name(get_prompt(USR_REQUESTS['name'], name_check))
+        donation = get_donation(get_prompt(USR_REQUESTS['amount'], donation_check))
         update_data(name, donation, data)
         write_email(name, donation)
         main(data)
@@ -67,7 +71,7 @@ def main(data):
         print("invalid selection")
         main(data)
 
-
+#FUNCTIONS RUN BY MAIN
 def menu_prompt(prompt):
     """Display menu prompt and accept selection"""
     user_input = prompt
@@ -129,4 +133,4 @@ def generate_report(sorted_list, data):
 
 
 if __name__ == '__main__':
-    main(sample_data)
+    main(SAMPLE_DATA)
