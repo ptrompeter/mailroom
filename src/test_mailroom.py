@@ -27,7 +27,7 @@ PROMPT_DATA = [('2', '2'), ('3', '3'), ('1', '1')]
 
 @pytest.mark.parametrize('input, result', NAME_CHECK_DATA)
 def test_check_data(input, result):
-	"""Test name_check"""
+    """Test name_check"""
     from mailroom import name_check
     assert name_check(input) == result
 
